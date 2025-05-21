@@ -1,0 +1,137 @@
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function Contact() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
+  const [showMobileButton, setShowMobileButton] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const nowDesktop = window.innerWidth >= 768;
+      setIsDesktop(nowDesktop);
+      if (nowDesktop) {
+        setShowMobileButton(false); // hide mobile button on desktop
+      }
+    };
+
+    const handleScroll = () => {
+      const isMobile = window.innerWidth < 768;
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
+      if (isMobile) setShowMobileButton(scrolledToBottom); // Show button only when scrolled to bottom
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
+    handleResize();
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isDesktop]);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    const data = await res.json();
+    setStatus(data.msg);
+  };
+
+  return (
+    <section
+      id="contact"
+      className="relative min-h-screen bg-cover bg-center text-white px-6 py-20"
+      style={{ backgroundImage: `url('/Home.jpeg')` }}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-darkOverlay/90 via-darkOverlay/60 to-transparent dark:from-black/90 dark:via-black/70" />
+
+      <div className="relative z-10 max-w-2xl mx-auto">
+        <h2 className="text-4xl font-bold text-accent mb-8 text-center">
+          Contact Me
+        </h2>
+
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white/10 dark:bg-white/5 backdrop-blur-md p-8 rounded-xl shadow-lg border border-white/20 dark:border-white/10 space-y-6"
+        >
+          <input
+            name="name"
+            onChange={handleChange}
+            placeholder="Name"
+            className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+            required
+          />
+          <input
+            name="email"
+            type="email"
+            onChange={handleChange}
+            placeholder="Email"
+            className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+            required
+          />
+          <input
+            name="phone"
+            type="tel"
+            onChange={handleChange}
+            placeholder="Phone"
+            className="w-full px-4 py-2 rounded-md bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+          />
+          <textarea
+            name="message"
+            onChange={handleChange}
+            placeholder="Message"
+            className="w-full px-4 py-2 h-32 rounded-md bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-accent"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-accent hover:bg-white hover:text-accent border border-transparent hover:border-accent transition text-white font-semibold py-2 rounded-md"
+          >
+            Send Message
+          </button>
+          {status && <p className="text-green-400 text-center">{status}</p>}
+        </form>
+
+        <p className="mt-12 text-center text-sm text-white/60">
+          Developed by Prathik using React.js, Tailwind CSS, Node.js, and
+          Vercel.
+        </p>
+      </div>
+
+      {/* Back Button */}
+      <div
+        className={`z-10 flex flex-col items-center fixed bottom-4 right-1/2 translate-x-1/2 md:right-16 md:translate-x-0 md:absolute md:bottom-14 transition-opacity duration-500 ${
+          isDesktop || showMobileButton
+            ? "opacity-100"
+            : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <button
+          onClick={() => navigate("/about")}
+          className="group flex flex-col items-center px-4 py-3 text-sm uppercase font-semibold text-white bg-transparent hover:bg-accent hover:text-white transition rounded-full"
+        >
+          <span>Back</span>
+          <span className="mt-1 rotate-180">→</span>
+        </button>
+      </div>
+    </section>
+  );
+}
