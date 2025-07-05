@@ -53,7 +53,7 @@ export default function Navbar() {
         {/* Right: Social Icons + Theme Toggle (Desktop) */}
         <div className="hidden md:flex items-center space-x-6 ml-auto">
           <a
-            href="https://github.com/yourusername"
+            href=""
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-accent transition"

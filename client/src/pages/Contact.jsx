@@ -61,14 +61,20 @@ export default function Contact() {
       className="relative min-h-screen bg-cover bg-center text-white px-6 py-20"
       style={{ backgroundImage: `url('/Home.jpeg')` }}
     >
+      {/* Background Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-darkOverlay/90 via-darkOverlay/60 to-transparent dark:from-black/90 dark:via-black/70" />
 
+      {/* Content */}
       <div className="relative z-10 max-w-2xl mx-auto">
-        <h2 className="text-4xl font-bold text-accent mb-8 text-center">
+        <h2 className="text-2xl font-semibold text-white mb-8 mt-4 text-center">
           Contact Me
         </h2>
-
-        <form
+        <h1 className="text-2xl italic text-accent mb-8 text-center">
+          E-mail to
+          <br></br>
+          prathik1470@gmail.com
+        </h1>
+        {/* <form
           onSubmit={handleSubmit}
           className="bg-white/10 dark:bg-white/5 backdrop-blur-md p-8 rounded-xl shadow-lg border border-white/20 dark:border-white/10 space-y-6"
         >
@@ -108,30 +114,31 @@ export default function Contact() {
             Send Message
           </button>
           {status && <p className="text-green-400 text-center">{status}</p>}
-        </form>
+        </form> */}
 
-        <p className="mt-12 text-center text-sm text-white/60">
-          Developed by Prathik using React.js, Tailwind CSS, Node.js, and
-          Vercel.
-        </p>
-      </div>
-
-      {/* Back Button */}
-      <div
-        className={`z-10 flex flex-col items-center fixed bottom-4 right-1/2 translate-x-1/2 md:right-16 md:translate-x-0 md:absolute md:bottom-14 transition-opacity duration-500 ${
-          isDesktop || showMobileButton
-            ? "opacity-100"
-            : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <button
-          onClick={() => navigate("/about")}
-          className="group flex flex-col items-center px-4 py-3 text-sm uppercase font-semibold text-white bg-transparent hover:bg-accent hover:text-white transition rounded-full"
+        {/* Arrow ABOVE Footer */}
+        <div
+          className={`z-10 flex justify-center mt-8 mb-0 transition-opacity duration-500 ${
+            isDesktop || showMobileButton
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
+          }`}
         >
-          <span>Back</span>
-          <span className="mt-1 rotate-180">→</span>
-        </button>
+          <button
+            onClick={() => navigate("/about")}
+            className="group flex flex-col items-center px-6 py-4 text-base uppercase font-semibold text-white dark:text-accent bg-transparent hover:text-blue-400 transition rounded-full"
+          >
+            <span className="mt-0 text-5xl rotate-180 tracking-widest animate-bounce text-white dark:text-accent">
+              ‹‹‹
+            </span>
+          </button>
+        </div>
+
+        {/* Footer Note */}
+        <p className="mt-8 text-center text-sm text-white/60">
+          Developed by Prathik using React.js, Tailwind CSS, Node.js
+        </p>
       </div>
     </section>
   );
-}
+}  

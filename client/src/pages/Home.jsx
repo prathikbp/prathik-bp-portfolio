@@ -63,14 +63,14 @@ export default function Home() {
 
   return (
     <section
-      className="relative min-h-screen bg-cover bg-center text-white dark:text-white overflow-hidden"
+      className="relative min-h-screen flex flex-col bg-cover bg-center text-white dark:text-white overflow-hidden"
       style={{ backgroundImage: `url('/Home.jpeg')` }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-darkOverlay/90 via-darkOverlay/60 to-transparent dark:from-black/90 dark:via-black/70" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 flex flex-col md:flex-row items-center justify-between space-y-10 md:space-y-0">
+      <div className="relative z-10 flex-grow max-w-7xl mx-auto px-6 pt-32 flex flex-col md:flex-row items-center justify-between space-y-10 md:space-y-0">
         {/* Left: Text */}
         <div className="md:w-1/2 flex flex-col space-y-6">
           {/* Hi There */}
@@ -96,10 +96,9 @@ export default function Home() {
           </h1>
 
           <p className="text-lg md:text-xl text-softGray dark:text-gray-300 max-w-xl leading-relaxed">
-            A graduate student pursuing a Master’s in Computer Science at{" "}
-            <span className="font-semibold">X University</span>, with a strong
-            passion for the study of Software systems and Data, particularly
-            aligning with machine learning-driven implementations.
+            I’m curious to work at the intersection of software, data, and
+            intelligence. I’m drawn to building systems that scale in the cloud,
+            uncover insights from data, and learn through machine learning.
           </p>
 
           <div
@@ -108,23 +107,28 @@ export default function Home() {
               show.experience
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
-            }`}
+            } mt-4`}
           >
-            <h2 className="text-xl font-bold text-white mb-2">
-              Experienced professional for about 2.5 years in
-            </h2>
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white tracking-tight">
+                Experienced professionally in
+              </h2>
 
-            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-md p-6 rounded-xl shadow-lg max-w-2xl border border-white/20 dark:border-white/10 mt-4">
-              <p className="text-xl text-softGray dark:text-gray-300">
-                Software Development, Data Engineering, and Analytics,
-                contributing to building scalable systems and efficient data
-                pipelines within Azure, while also developing dynamic web
-                applications with React.js and Python. My work often involves
-                transforming complex data into actionable insights through
-                interactive dashboards and visualizations using Power BI.
-                Throughout my journey, I’ve delivered robust, cloud-based
-                solutions in real-world projects.
-              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md">
+                {[
+                  "Software Development",
+                  "Cloud Data Engineering",
+                  "Data Analytics",
+                  "Machine Learning",
+                ].map((text, i) => (
+                  <div
+                    key={i}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-br from-white/10 to-white/5 dark:from-white/5 dark:to-white/0 text-blue-300 border border-white/10 backdrop-blur-sm shadow-md hover:shadow-blue-400/20 transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-[1.02] text-sm font-semibold text-center"
+                  >
+                    {text}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -139,9 +143,9 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Next Button */}
+      {/* Arrow ABOVE Footer */}
       <div
-        className={`z-10 flex flex-col items-center fixed bottom-6 right-1/2 translate-x-1/2 md:right-16 md:translate-x-0 md:absolute md:bottom-14 transition-opacity duration-500 ${
+        className={`z-10 flex justify-center mt-6 mb-0 transition-opacity duration-500 ${
           isDesktop || showMobileButton
             ? "opacity-100"
             : "opacity-0 pointer-events-none"
@@ -149,17 +153,18 @@ export default function Home() {
       >
         <button
           onClick={() => navigate("/projects")}
-          className="group flex flex-col items-center px-4 py-3 text-sm uppercase font-semibold text-white bg-transparent hover:bg-accent hover:text-white transition rounded-full"
+          className="group flex flex-col items-center px-6 py-4 text-base uppercase font-semibold text-white dark:text-accent bg-transparent hover:text-blue-400 transition rounded-full"
         >
-          <span>Next</span>
-          <span className="mt-1 animate-bounce">→</span>
+          <span className="mt-0 animate-bounce text-5xl tracking-widest text-white dark:text-accent">
+            ›››
+          </span>
         </button>
       </div>
 
       {/* Footer */}
-      <footer className="mt-20 pt-12 text-center text-sm text-softGray dark:text-gray-400 relative z-10">
+      <footer className="pt-6 pb-12 text-center text-sm text-softGray dark:text-gray-400">
         Developed by Prathik using React.js, Tailwind CSS, Node.js
       </footer>
     </section>
   );
-}
+}  

@@ -8,33 +8,41 @@ export default function About() {
 
   const professionalTimeline = [
     {
-      title: "Internship & Work Experience",
-      period: "2021 – 2023",
+      title: "Data Analyst & Software Developer, Mercedes-Benz R&D",
+      period: "Aug 2023 – Dec 2024",
       description:
-        "Worked professionally for 2.5 years in software development, data engineering, and analytics.",
+        "Led the development of a full-stack data observability platform aligned with Data Content, Flow, Infrastructure, Usage, Cost, moving towards saving data storage costs. Integrated Azure Data Lake, Databricks, and LLMs for scalable analytics and user automation. Built a ReactJS-based frontend and Python REST backend to replace Power BI for better performance.",
+    },
+    {
+      title: "Data Engineer, Mercedes-Benz R&D",
+      period: "Aug 2022 – Aug 2023",
+      description:
+        "Engineered Azure Data Factory pipelines and migrated legacy systems across EMEA and NAFTA. Enabled real-time streaming with Kafka, Event Hubs, and AWS sources. Led agile sprint planning and contributed to major data platform, migrations.",
     },
   ];
+  
 
   const academicTimeline = [
     {
-      title: "Schooling",
-      period: "Up to 2017",
-      description:
-        "Completed high school with a solid foundation in mathematics and computer science.",
-    },
-    {
-      title: "Bachelor's in Computer Science",
-      period: "2017 – 2021",
-      description:
-        "Earned my undergraduate degree with strong interest in software engineering and data systems.",
-    },
-    {
       title: "Master's in Computer Science",
-      period: "2023 – Present",
+      period: "Jan 2025 – Dec 2026",
       description:
-        "Currently pursuing a Master’s at X University, focusing on software systems and machine learning-driven data solutions.",
+        "Currently pursuing a Master's at Iowa State University, focusing on software systems, cloud platforms, and machine learning-driven data solutions.",
+    },
+    {
+      title: "Bachelor's in Information Science & Engineering",
+      period: "Aug 2018 – Jul 2022",
+      description:
+        "Graduated with an 8.4 CGPA from SJB Institute of Technology, Bengaluru, building a strong base in software engineering, data platforms, and machine learning fundamentals.",
+    },
+    {
+      title: "Schooling",
+      period: "Up to 2018",
+      description:
+        "Completed high school from Bengaluru with a solid foundation in mathematics and computer science.",
     },
   ];
+  
 
   useEffect(() => {
     const reveal = () => {
@@ -77,8 +85,8 @@ export default function About() {
   }, [isDesktop]);
 
   const renderTimelineSection = (title, items) => (
-    <div className="mb-24 relative">
-      <h2 className="text-2xl font-bold text-white mb-16 text-center">
+    <div className="mb-12 relative">
+      <h2 className="text-2xl font-bold text-white mb-8 text-center">
         {title}
       </h2>
       <div className="hidden md:block absolute top-1/2 left-1/2 w-px h-full bg-accent/30 -translate-x-1/2 z-0" />
@@ -112,45 +120,48 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative min-h-screen bg-cover bg-center text-white px-6 py-20 overflow-hidden"
+      className="relative min-h-screen bg-cover bg-center text-white px-6 py-20 overflow-hidden mt-4"
       style={{ backgroundImage: `url('/Home.jpeg')` }}
     >
       <div className="absolute inset-0 bg-gradient-to-br from-darkOverlay/90 via-darkOverlay/60 to-transparent dark:from-black/90 dark:via-black/70" />
-
+  
       <div className="relative z-10 max-w-6xl mx-auto">
         {renderTimelineSection("Professional Experience", professionalTimeline)}
         {renderTimelineSection("Academic Journey", academicTimeline)}
-      </div>
-
-      {/* Back and Next Buttons */}
-      <div
-        className={`z-10 flex space-x-6 items-center fixed bottom-4 right-1/2 translate-x-1/2 md:right-16 md:translate-x-0 md:absolute md:bottom-14 transition-opacity duration-500 ${
-          isDesktop || showMobileButton
-            ? "opacity-100"
-            : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <button
-          onClick={() => navigate("/projects")}
-          className="group flex flex-col items-center px-4 py-3 text-sm uppercase font-semibold text-white bg-transparent hover:bg-accent hover:text-white transition rounded-full"
+  
+        {/* Arrows ABOVE Footer */}
+        <div
+          className={`z-10 flex justify-center space-x-6 mt-6 mb-0 transition-opacity duration-500 ${
+            isDesktop || showMobileButton
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
+          }`}
         >
-          <span>Back</span>
-          <span className="mt-1 rotate-180">→</span>
-        </button>
-        <button
-          onClick={() => navigate("/contact")}
-          className="group flex flex-col items-center px-4 py-3 text-sm uppercase font-semibold text-white bg-transparent hover:bg-accent hover:text-white transition rounded-full"
-        >
-          <span>Next</span>
-          <span className="mt-1 animate-bounce">→</span>
-        </button>
+          <button
+            onClick={() => navigate("/projects")}
+            className="group flex flex-col items-center px-6 py-4 text-base uppercase font-semibold text-white dark:text-accent bg-transparent hover:text-blue-400 transition rounded-full"
+          >
+            <span className="mt-0 text-5xl rotate-180 tracking-widest animate-bounce text-white dark:text-accent">
+              ‹‹‹
+            </span>
+          </button>
+  
+          <button
+            onClick={() => navigate("/contact")}
+            className="group flex flex-col items-center px-6 py-4 text-base uppercase font-semibold text-white dark:text-accent bg-transparent hover:text-blue-400 transition rounded-full"
+          >
+            <span className="mt-0 text-5xl tracking-widest animate-bounce text-white dark:text-accent">
+              ›››
+            </span>
+          </button>
+        </div>
+  
+        {/* Footer (keep it below the arrow) */}
+        <footer className="pt-6 pb-12 text-center text-sm text-softGray dark:text-gray-400">
+          Developed by Prathik using React.js, Tailwind CSS, Node.js
+        </footer>
       </div>
-
-      {/* Footer */}
-      <footer className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center text-sm text-softGray dark:text-gray-400">
-        Developed by Prathik using React.js, Tailwind CSS, Node.js
-      </footer>
-
+  
       <style>{`
         .animate-reveal {
           opacity: 1 !important;
@@ -162,4 +173,4 @@ export default function About() {
       `}</style>
     </section>
   );
-}
+}  

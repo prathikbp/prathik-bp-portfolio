@@ -1,33 +1,46 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
+import observabilityImg from "../assets/data-observability-app.png";
+import pipelinesImg from "../assets/cloud-data-pipelines.png";
+import greenitImg from "../assets/greenit-powerbi-dashboard.png";
 
 const professionalProjects = [
   {
-    title: "Portfolio Website",
+    title: "Data Observability Application",
     description:
-      "A modern personal website built with React, Tailwind CSS, and Node.js.",
-    link: "",
+      "Co-lead and developed a full-stack web application for monitoring organizational data health using React.js, Python over Azure based Data platforms. Enabled analytics aligned with Gartner’s 5 observability pillars, improving data platform efficiency across 12 business units.",
+    image: observabilityImg,
   },
   {
-    title: "Data Dashboard",
+    title: "Cloud Data Engineering Pipelines",
     description:
-      "Interactive data visualizations using D3.js and Express APIs.",
-    link: "https://github.com/yourusername/data-dashboard",
+      "Designed and developed 8+ Azure Data Factory pipelines for enterprise-scale data integration and analytics. Led the migration of over 160 legacy pipelines across EMEA and NAFTA, improving data flow efficiency and reliability as part of large-scale digital transformation.",
+    image: pipelinesImg,
+  },
+  {
+    title: "GreenIT Power BI Dashboard",
+    description:
+      "Spearheaded the development of a Power BI dashboard for organizational sustainability efforts. Profiled over 10TB of file usage data to identify and offload cold storage, supporting GreenIT carbon footprint reduction.",
+    image: greenitImg,
   },
 ];
 
 const academicProjects = [
   {
-    title: "ML-Based Sentiment Analyzer",
+    title: "Federated Continual Learning Research",
     description:
-      "Built a sentiment analysis model using Python and Scikit-learn for Twitter data.",
-    link: "https://github.com/yourusername/sentiment-analyzer",
+      "Engaged in an ongoing research in federated learning across edge devices with a focus on continual task adaptation, catastrophic forgetting, and privacy-preserving training.",
   },
   {
-    title: "Compiler Design Project",
+    title: "Air Quality & Carbon Emission Forecasting",
     description:
-      "Developed a mini-compiler in C++ with lexical and syntax analysis.",
-    link: "https://github.com/yourusername/compiler-project",
+      "Built a web-based forecasting tool using clustering and ARIMA to predict air quality from global datasets, with EM used for missing value handling and interactive visualizations.",
+  },
+  {
+    title:
+      "Machine Learning Approach to Learn and Detect Malware in Android",
+    description:
+      "Implemented a web-based malware detection system for Android apps using Support Vector Machines and Artificial Neural Networks trained models on pattern evaluation data in a team of 4.",
   },
 ];
 
@@ -79,94 +92,91 @@ export default function Projects() {
     };
   }, [visible]);
 
-  const renderCards = (projects, startIndex) =>
-    projects.map((project, i) => {
-      const index = startIndex + i;
+  const renderCards = (projects, startIndex = 0) => {
+    return projects.map((project, index) => {
+      const hasImage = !!project.image;
       return (
         <div
-          key={index}
-          ref={(el) => (cardRefs.current[index] = el)}
-          className={`transition-all transform duration-700 ${
-            visible[index]
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-10"
-          } delay-[${
-            (i + 1) * 400
-          }ms] bg-white/10 dark:bg-white/5 backdrop-blur-md p-6 rounded-xl shadow-lg border border-white/20 dark:border-white/10 hover:shadow-xl`}
+          key={startIndex + index}
+          className="bg-white/5 backdrop-blur-md rounded-2xl overflow-hidden shadow-lg border border-white/10 hover:scale-[1.02] transition-transform duration-300"
         >
-          <h3 className="text-2xl font-semibold text-white mb-2">
-            {project.title}
-          </h3>
-          <p className="text-softGray dark:text-gray-300 mb-4">
-            {project.description}
-          </p>
-          {project.link && (
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-accent hover:underline font-medium"
-            >
-              View Project →
-            </a>
+          {hasImage && (
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-64 object-contain bg-gray-900 rounded-t-xl"
+            />
           )}
+          <div className={`${hasImage ? "p-5" : "p-6"}`}>
+            <h3 className="text-xl font-bold text-white mb-2">
+              {project.title}
+            </h3>
+            <p className="text-gray-300 text-sm">{project.description}</p>
+          </div>
         </div>
       );
     });
+  };  
 
   return (
     <section
       id="projects"
-      className="relative min-h-screen bg-cover bg-center text-white dark:text-white px-6 pt-20 pb-40"
+      className="relative min-h-screen bg-cover bg-center text-white px-6 py-20 overflow-hidden mt-4"
       style={{ backgroundImage: `url('/Home.jpeg')` }}
     >
+      {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-darkOverlay/90 via-darkOverlay/60 to-transparent dark:from-black/90 dark:via-black/70" />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      {/* Content Container */}
+      <div className="relative z-10 flex-grow max-w-7xl mx-auto">
+        {/* Professional Projects */}
         <h2 className="text-2xl font-semibold text-white mb-6 text-center">
           Professional Projects
         </h2>
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {renderCards(professionalProjects, 0)}
         </div>
 
+        {/* Academic Projects */}
         <h2 className="text-2xl font-semibold text-white mb-6 text-center">
           Academic Projects
         </h2>
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {renderCards(academicProjects, professionalProjects.length)}
         </div>
-      </div>
 
-      {/* Next Button */}
-      <div
-        className={`z-10 flex space-x-6 items-center fixed bottom-4 right-1/2 translate-x-1/2 md:right-16 md:translate-x-0 md:absolute md:bottom-14 transition-opacity duration-500 ${
-          isDesktop || showMobileButton
-            ? "opacity-100"
-            : "opacity-0 pointer-events-none"
-        }`}
-      >
-        <button
-          onClick={() => navigate("/")}
-          className="group flex flex-col items-center px-4 py-3 text-sm uppercase font-semibold text-white bg-transparent hover:bg-accent hover:text-white transition rounded-full"
+        {/* Arrows ABOVE Footer */}
+        <div
+          className={`z-10 flex justify-center space-x-6 mt-6 mb-0 transition-opacity duration-500 ${
+            isDesktop || showMobileButton
+              ? "opacity-100"
+              : "opacity-0 pointer-events-none"
+          }`}
         >
-          <span>Back</span>
-          <span className="mt-1 rotate-180">→</span>
-        </button>
+          <button
+            onClick={() => navigate("/")}
+            className="group flex flex-col items-center px-6 py-4 text-base uppercase font-semibold text-white dark:text-accent bg-transparent hover:text-blue-400 transition rounded-full"
+          >
+            <span className="mt-0 animate-bounce text-5xl tracking-widest text-white dark:text-accent">
+              ‹‹‹
+            </span>
+          </button>
 
-        <button
-          onClick={() => navigate("/about")}
-          className="group flex flex-col items-center px-4 py-3 text-sm uppercase font-semibold text-white bg-transparent hover:bg-accent hover:text-white transition rounded-full"
-        >
-          <span>Next</span>
-          <span className="mt-1 animate-bounce">→</span>
-        </button>
+          <button
+            onClick={() => navigate("/about")}
+            className="group flex flex-col items-center px-6 py-4 text-base uppercase font-semibold text-white dark:text-accent bg-transparent hover:text-blue-400 transition rounded-full"
+          >
+            <span className="mt-0 animate-bounce text-5xl tracking-widest text-white dark:text-accent">
+              ›››
+            </span>
+          </button>
+        </div>
+
+        {/* Footer */}
+        <footer className="pt-6 pb-12 text-center text-sm text-softGray dark:text-gray-400">
+          Developed by Prathik using React.js, Tailwind CSS, Node.js
+        </footer>
       </div>
-
-      {/* Footer */}
-      <footer className="mt-20 pt-12 text-center text-sm text-softGray dark:text-gray-400 relative z-10">
-        Developed by Prathik using React.js, Tailwind CSS, Node.js
-      </footer>
     </section>
   );
-}
+}  
