@@ -69,9 +69,9 @@ export default function Contact() {
         <h2 className="text-2xl font-semibold text-white mb-8 mt-4 text-center">
           Contact Me
         </h2>
-        <h1 className="text-2xl italic text-accent mb-8 text-center">
-          E-mail to
-          <br></br>
+        <h1 className="text-2xl  text-accent mb-8 text-center">E-mail to</h1>
+        <h1 className="text-2xl italic  mb-8 text-center">
+          {" "}
           prathik1470@gmail.com
         </h1>
         {/* <form

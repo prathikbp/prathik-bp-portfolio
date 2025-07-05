@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X, Github, Linkedin, Instagram } from "lucide-react";
+import logo from '../assets/portfolio logo 2.png'; // adjust path as needed
+
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -26,11 +28,8 @@ export default function Navbar() {
     <>
       <nav className="fixed top-0 left-0 w-full z-30 px-6 py-4 flex items-center justify-between bg-darkOverlay/80 backdrop-blur-md text-white shadow-md">
         {/* Left: Logo / Brand */}
-        <NavLink
-          to="/"
-          className="text-2xl font-bold text-accent tracking-wide"
-        >
-          Portfolio
+        <NavLink to="/" className="inline-block">
+          <img src={logo} alt="Logo" className="h-10 w-auto rounded-lg" />
         </NavLink>
 
         {/* Center: Desktop Nav Links */}
@@ -53,7 +52,7 @@ export default function Navbar() {
         {/* Right: Social Icons + Theme Toggle (Desktop) */}
         <div className="hidden md:flex items-center space-x-6 ml-auto">
           <a
-            href=""
+            href="https://github.com/prathikbp"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-accent transition"
@@ -61,7 +60,7 @@ export default function Navbar() {
             <Github size={24} />
           </a>
           <a
-            href="https://www.linkedin.com/in/prathik-b-p-26b2771a1/"
+            href="https://www.linkedin.com/in/prathik-bp/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-accent transition"
@@ -80,7 +79,7 @@ export default function Navbar() {
             onClick={() => setDarkMode(!darkMode)}
             className="px-3 py-1 bg-white/10 hover:bg-accent hover:text-white transition rounded-md text-sm text-white"
           >
-            {darkMode ? "☀ Light" : "🌙 Dark"}
+            {darkMode ? "☀" : "🌙"}
           </button>
         </div>
 
