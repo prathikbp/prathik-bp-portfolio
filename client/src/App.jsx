@@ -7,7 +7,6 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import ScrollToTop from "./components/scrollToTop";
 
-
 export default function App() {
   useEffect(() => {
     document.documentElement.classList.add("dark");
