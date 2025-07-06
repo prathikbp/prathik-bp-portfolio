@@ -107,7 +107,7 @@ export default function Navbar() {
           ))}
           <div className="flex space-x-6 mt-4">
             <a
-              href="https://github.com/yourusername"
+              href="https://github.com/prathikbp"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white hover:text-accent transition"
@@ -135,7 +135,7 @@ export default function Navbar() {
             onClick={() => setDarkMode(!darkMode)}
             className="mt-4 px-4 py-2 bg-white/10 hover:bg-accent hover:text-white transition rounded-md text-sm text-white"
           >
-            {darkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
+            {darkMode ? "☀" : "🌙"}
           </button>
         </div>
       )}

@@ -37,8 +37,12 @@ const academicProjects = [
       "Built a web-based forecasting tool using clustering and ARIMA to predict air quality from global datasets, with EM used for missing value handling and interactive visualizations.",
   },
   {
-    title:
-      "Machine Learning Approach to Learn and Detect Malware in Android",
+    title: "Netflix clone",
+    description:
+      "Developed a Netflix clone using React.js, Docker, and PostgreSQL, featuring user authentication and video browsing. Emulated core streaming platform UI to demonstrate full-stack development and containerized deployment skills.",
+  },
+  {
+    title: "Machine Learning Approach to Learn and Detect Malware in Android",
     description:
       "Implemented a web-based malware detection system for Android apps using Support Vector Machines and Artificial Neural Networks trained models on pattern evaluation data in a team of 4.",
   },
