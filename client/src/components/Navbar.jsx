@@ -1,21 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X, Github, Linkedin, Instagram } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 import logo from '../assets/portfolio logo 2.png'; // adjust path as needed
 
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (darkMode) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-  }, [darkMode]);
+  const { darkMode, setDarkMode } = useTheme();
 
   const navLinks = [
     { label: "Home", to: "/" },
