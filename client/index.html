@@ -5,6 +5,11 @@
     <link rel="icon" type="image/svg+xml" href="/portfolio logo 1.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Prathik B Prabhakara</title>
+    <script>
+      if (!localStorage.getItem('theme') || localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
   <body class="scroll-smooth bg-bgLight text-gray-800">
     <div id="root"></div>
