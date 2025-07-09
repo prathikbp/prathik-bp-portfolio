@@ -28,7 +28,7 @@ export default function Contact() {
     const handleScroll = () => {
       const isMobile = window.innerWidth < 768;
       const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
       if (isMobile) {
         if (scrolledToBottom) {
           setShowMobileButton(true);
