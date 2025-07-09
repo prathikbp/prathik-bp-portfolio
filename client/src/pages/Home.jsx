@@ -36,16 +36,31 @@ export default function Home() {
       const isMobile = window.innerWidth < 768;
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
-      setShowMobileButton(isMobile && scrolledToBottom);
+      if (isMobile) {
+        if (scrolledToBottom) {
+          setShowMobileButton(true);
+          atBottom = true;
+        } else if (window.scrollY < lastScrollY && atBottom) {
+          // If user scrolls up after reaching bottom, keep showing the button
+          setShowMobileButton(true);
+        } else {
+          setShowMobileButton(false);
+          atBottom = false;
+        }
+        lastScrollY = window.scrollY;
+      }
     };
 
     const handleResize = () => {
       const nowDesktop = window.innerWidth >= 768;
       setIsDesktop(nowDesktop);
       if (nowDesktop) {
-        setShowMobileButton(false); // reset mobile button on resize to desktop
+        setShowMobileButton(false); // hide mobile button on desktop
       }
     };
+
+    let lastScrollY = window.scrollY;
+    let atBottom = false;
 
     window.addEventListener("scroll", reveal);
     window.addEventListener("scroll", handleScroll);
@@ -59,7 +74,7 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [isDesktop]);
 
   return (
     <section
@@ -167,4 +182,4 @@ export default function Home() {
       </footer>
     </section>
   );
-}  
+}

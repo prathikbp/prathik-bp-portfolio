@@ -22,11 +22,26 @@ export default function Contact() {
       }
     };
 
+    let lastScrollY = window.scrollY;
+    let atBottom = false;
+
     const handleScroll = () => {
       const isMobile = window.innerWidth < 768;
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
-      if (isMobile) setShowMobileButton(scrolledToBottom); // Show button only when scrolled to bottom
+      if (isMobile) {
+        if (scrolledToBottom) {
+          setShowMobileButton(true);
+          atBottom = true;
+        } else if (window.scrollY < lastScrollY && atBottom) {
+          // If user scrolls up after reaching bottom, keep showing the button
+          setShowMobileButton(true);
+        } else {
+          setShowMobileButton(false);
+          atBottom = false;
+        }
+        lastScrollY = window.scrollY;
+      }
     };
 
     window.addEventListener("resize", handleResize);
@@ -141,4 +156,4 @@ export default function Contact() {
       </div>
     </section>
   );
-}  
+}

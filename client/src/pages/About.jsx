@@ -55,32 +55,47 @@ export default function About() {
       });
     };
 
-    const handleScroll = () => {
-      const isMobile = window.innerWidth < 768;
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
-      if (!isDesktop) setShowMobileButton(scrolledToBottom); // Show button only on scroll to bottom for mobile
-    };
-
     const handleResize = () => {
       const nowDesktop = window.innerWidth >= 768;
       setIsDesktop(nowDesktop);
       if (nowDesktop) {
-        setShowMobileButton(true); // Show button always on desktop
+        setShowMobileButton(false); // hide mobile button on desktop
+      }
+    };
+
+    let lastScrollY = window.scrollY;
+    let atBottom = false;
+
+    const handleScroll = () => {
+      const isMobile = window.innerWidth < 768;
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
+      if (isMobile) {
+        if (scrolledToBottom) {
+          setShowMobileButton(true);
+          atBottom = true;
+        } else if (window.scrollY < lastScrollY && atBottom) {
+          // If user scrolls up after reaching bottom, keep showing the button
+          setShowMobileButton(true);
+        } else {
+          setShowMobileButton(false);
+          atBottom = false;
+        }
+        lastScrollY = window.scrollY;
       }
     };
 
     window.addEventListener("scroll", reveal);
-    window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
     reveal();
     handleScroll();
     handleResize();
 
     return () => {
       window.removeEventListener("scroll", reveal);
-      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [isDesktop]);
 
@@ -173,4 +188,4 @@ export default function About() {
       `}</style>
     </section>
   );
-}  
+}

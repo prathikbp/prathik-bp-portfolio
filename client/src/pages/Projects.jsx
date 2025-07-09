@@ -57,44 +57,46 @@ export default function Projects() {
   const cardRefs = useRef([]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      cardRefs.current.forEach((ref, i) => {
-        if (ref && !visible[i]) {
-          const top = ref.getBoundingClientRect().top;
-          if (top < window.innerHeight - 100) {
-            setVisible((prev) => {
-              const updated = [...prev];
-              updated[i] = true;
-              return updated;
-            });
-          }
-        }
-      });
-
-      const isMobile = window.innerWidth < 768;
-      const scrolledToBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
-      setShowMobileButton(isMobile && scrolledToBottom);
-    };
-
     const handleResize = () => {
       const nowDesktop = window.innerWidth >= 768;
       setIsDesktop(nowDesktop);
       if (nowDesktop) {
-        setShowMobileButton(false);
+        setShowMobileButton(false); // hide mobile button on desktop
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    let lastScrollY = window.scrollY;
+    let atBottom = false;
+
+    const handleScroll = () => {
+      const isMobile = window.innerWidth < 768;
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 50;
+      if (isMobile) {
+        if (scrolledToBottom) {
+          setShowMobileButton(true);
+          atBottom = true;
+        } else if (window.scrollY < lastScrollY && atBottom) {
+          // If user scrolls up after reaching bottom, keep showing the button
+          setShowMobileButton(true);
+        } else {
+          setShowMobileButton(false);
+          atBottom = false;
+        }
+        lastScrollY = window.scrollY;
+      }
+    };
+
     window.addEventListener("resize", handleResize);
-    handleScroll();
+    window.addEventListener("scroll", handleScroll);
     handleResize();
+    handleScroll();
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [visible]);
+  }, [isDesktop]);
 
   const renderCards = (projects, startIndex = 0) => {
     return projects.map((project, index) => {
@@ -183,4 +185,4 @@ export default function Projects() {
       </div>
     </section>
   );
-}  
+}
